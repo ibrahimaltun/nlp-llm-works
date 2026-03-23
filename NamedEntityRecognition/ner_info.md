@@ -1,12 +1,9 @@
 
 # NER - Adlandırılmış Varlık Tanıma
 
-NER, yapılandırılmamış metinler içerisindeki özel isimleri (kişi, yer, organizasyon
-vb.)
-otomatik olarak tespit edip önceden tanımlanmış kategorilere ayıran bir NLP tekniğidir.
+NER, yapılandırılmamış metinler içerisindeki özel isimleri (kişi, yer, organizasyon vb.) otomatik olarak tespit edip önceden tanımlanmış kategorilere ayıran bir NLP tekniğidir.
 
-NER, metindeki ham veriyi anlamlı ve yapılandırılmış bilgiye dönüştürür.
-Yaygın olarak kullanılan bazı standart kategoriler şunlardır:
+NER, metindeki ham veriyi anlamlı ve yapılandırılmış bilgiye dönüştürür. Yaygın olarak kullanılan bazı standart kategoriler şunlardır:
 
 - Kişi (PER): Albert Einstein, Nelson Mandela.
 - Organizasyon (ORG): Google, Birleşmiş Milletler.
@@ -16,22 +13,17 @@ Yaygın olarak kullanılan bazı standart kategoriler şunlardır:
 
 ## Kullanılan Yöntemler
 
--> Kural Tabanlı (Rule-based): Düzenli ifadeler (regex) ve sözlükler kullanılır.
-Belirli kalıplar için yüksek doğruluk sunar ancak esnek değildir.
+-> Kural Tabanlı (Rule-based): Düzenli ifadeler (regex) ve sözlükler kullanılır. Belirli kalıplar için yüksek doğruluk sunar ancak esnek değildir.
 
--> İstatistiksel / Makine Öğrenmesi: CRF (Conditional Random Fields) ve
-HMM (Hidden Markov Models) gibi algoritmalarla bağlam analizi yapılır.
+-> İstatistiksel / Makine Öğrenmesi: CRF (Conditional Random Fields) ve HMM (Hidden Markov Models) gibi algoritmalarla bağlam analizi yapılır.
 
--> Derin Öğrenme: Günümüzde en popüler yöntemdir. BERT, RoBERTa gibi
-Transformer modelleri ve LSTM ağları ile karmaşık metinlerde yüksek başarı elde edilir. ￼
+-> Derin Öğrenme: Günümüzde en popüler yöntemdir. BERT, RoBERTa gibi Transformer modelleri ve LSTM ağları ile karmaşık metinlerde yüksek başarı elde edilir. ￼
 
 ## Neden spaCy?
 
--> Hazır Modeller: Hiç veri toplamanıza gerek kalmadan milyonlarca kelimeyle eğitilmiş
-modelleri kullanırsınız.
+-> Hazır Modeller: Hiç veri toplamanıza gerek kalmadan milyonlarca kelimeyle eğitilmiş modelleri kullanırsınız.
 -> Hız: C dilinde optimize edildiği için büyük metin yığınlarını saniyeler içinde tarar.
--> Görselleştirme: displacy modülü sayesinde varlıkları metin üzerinde renkli etiketlerle
-kolayca görselleştirebilirsiniz.
+-> Görselleştirme: displacy modülü sayesinde varlıkları metin üzerinde renkli etiketlerle kolayca görselleştirebilirsiniz.
 
 ### spacy yükleme adımları
 
