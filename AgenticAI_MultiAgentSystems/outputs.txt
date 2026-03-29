@@ -1,0 +1,78 @@
+
+# Model: llama3.1
+----------------------------------------------
+# query: """
+            Şu an sistemin genel durumu nasıl? 
+            Önce donanım kaynaklarını kontrol et, sonra şu log satırını analiz et: 
+            'RuntimeError: CUDA out of memory in Computer Vision pipeline'
+        """
+# result:
+"""
+LangGraph Llama3 Tool Calling Başlıyor
+
+# Adım: agent
+Model Aaç Çağırıyor: [{'name': '__get_system_resource_usage', 'args': {}, 'id': '5b88fc12-767f-4d52-b5af-4cd91dea3b2e', 'type': 'tool_call'}]
+
+# Adım: tools
+Model cevabı: {"cpu_percent": "%0.5", "ram_percent": "%29.1", "vram_usage": "0.00MB / 11772.44MB (%0.0)", "status": "Normal"}
+
+# Adım: agent
+Model cevabı: Sistemin genel durumu normaldir. Donanım kaynakları kontrol edildiğinde, CPU %0.5 oranında kullanımda ve RAM'de %29.1 oranında kullanımda olduğu görülmektedir. Ayrıca, GPU'daki VRAM kullanımı %0.0 oranındadır.
+
+Log satırını analiz ettiğimizde, "CUDA out of memory" hatası görülmektedir. Bu hata genellikle GPU'nun yeterli bellek alamadığı durumlarda oluşur. Bu durumda, sistemin genel durumunu normal olarak değerlendirebiliriz ancak GPU'nun bellek kullanımını kontrol etmek ve gerekli ayarlamaları yapmak önemlidir.
+
+Öneri: Sistemin genel durumu normaldir ancak GPU'nun bellek kullanımını kontrol etmek ve gerekli ayarlamaları yapmak önemlidir.
+Akış Tamamlandı
+"""
+
+----------------------------------------------
+
+# query: 
+(
+        "Sen uzman bir Sistem ve AI Altyapı Analistisin. "
+        "Araçlardan gelen verileri ham halde bırakma, mutlaka YORUMLA. "
+        "Raporunu şu başlıklarla TÜRKÇE olarak sun:\n"
+        "1. 🖥️ DONANIM DURUMU: CPU, RAM ve VRAM değerlerini tek tek yaz ve limitlere yakınlığını belirt.\n"
+        "2. 🔍 LOG ANALİZİ: Tespit edilen hataların ne anlama geldiğini teknik olarak açıkla.\n"
+        "3. 💡 ÇÖZÜM ÖNERİSİ: Sorunu çözmek için atılması gereken somut adımları (örn: model küçültme, cache temizleme) söyle.\n"
+        "Yanıtın teknik, detaylı ve profesyonel olsun."
+)
+
+# result:
+"""
+LangGraph Llama3 Tool Calling Başlıyor
+
+# Adım: agent
+Model Aaç Çağırıyor: [{'name': '__get_system_resource_usage', 'args': {}, 'id': '2ecdf222-31e2-4910-9559-1c6a799621ee', 'type': 'tool_call'}]
+
+# Adım: tools
+Model cevabı: {"cpu_percent": "%7.0", "ram_percent": "%30.5", "vram_usage": "0.00MB / 11772.44MB (%0.0)", "status": "Normal"}
+
+# Adım: agent
+Model cevabı: **DONANIM DURUMU:**
+
+* **CPU:** %7.0 (Normal)
+* **RAM:** %30.5 (Dikkat, RAM limitine yakınsınız.)
+* **VRAM:** 0.00MB / 11772.44MB (%0.0) (Normal)
+
+**LOG ANALİZİ:**
+
+Araçlardan gelen verileri ham halde bırakma hataları genellikle "Data not processed" veya "Error processing data" gibi hatalarla ilişkilendirilir. Bu hataların temel nedeni, araçların veri işleme süreçlerinde yaşanan sorunlardır.
+
+* **Hata 1:** "Data not processed" - Bu hata, araçların verileri işlemeden bırakması anlamına gelir. Çoğu zaman bu hata, araçların bellek (RAM) kısıtlılığı veya donanım sorununun bir sonucu olarak ortaya çıkar.
+* **Hata 2:** "Error processing data" - Bu hata, araçların verileri işlerken yaşanan sorunlara işaret eder. Bu hataların temel nedeni, araçların algoritma veya veri yapısında yaşanan sorunlardır.
+
+**ÇÖZÜM ÖNERİSİ:**
+
+Sorunu çözmek için aşağıdaki adımları takip edebilirsiniz:
+
+1. **Model Küçültme:** Veri işleme süreçlerinde kullanılan modelin boyutunu azaltarak bellek (RAM) kısıtlılığını giderin.
+2. **Cache Temizleme:** Araçların cache'ini temizleyerek veri işleme süreçlerinde yaşanan sorunları giderin.
+3. **Donanım Kontrolü:** Donanımın sorunsuz çalışmasını sağlamak için gerekli ayarlamaları yapın.
+4. **Veri İşleme Algoritması Optimizasyonu:** Veri işleme algoritmasının optimizasyonunu yaparak araçların veri işleme süreçlerinde yaşanan sorunları giderin.
+
+Bu adımları takip ederek, araçlardan gelen verileri ham halde bırakma hatalarını ortadan kaldırabilir ve daha verimli bir veri işleme süreci sağlayabilirsiniz.
+Akış Tamamlandı
+"""
+
+----------------------------------------------
