@@ -14,22 +14,22 @@ def __multiply(a: int, b: int) -> int:
 
 @tool
 def __get_system_resource_usage():
-    """CPU, RAM ve VRAM (GPU) kullanım oranlarını anlık olarak döndürür."""
-    cpu_usage = psutil.cpu_percent(interval=0.5)
-    ram_usage = psutil.virtual_memory().percent
+    """Donanım kaynaklarının detaylı dökümünü yapar."""
+    cpu_usage = psutil.cpu_percent(interval=0.7)
+    ram = psutil.virtual_memory()
 
-    vram_info = "GPU Mevcut Değil"
+    vram_report = "GPU Tespit Edilemedi"
     if torch.cuda.is_available():
-        # VRAM kullanımını hesapla (MB cinsinden)
         vram_allocated = torch.cuda.memory_allocated() / (1024**2)
+        vram_reserved = torch.cuda.memory_reserved() / (1024**2)
         vram_total = torch.cuda.get_device_properties(0).total_memory / (1024**2)
-        vram_info = f"{vram_allocated:.2f}MB / {vram_total:.2f}MB (%{ (vram_allocated/vram_total)*100 :.1f})"
+        vram_report = f"Kullanılan: {vram_allocated:.1f}MB, Ayrılan: {vram_reserved:.1f}MB, Toplam: {vram_total:.1f}MB"
 
     return {
-        "cpu_percent": f"%{cpu_usage}",
-        "ram_percent": f"%{ram_usage}",
-        "vram_usage": vram_info,
-        "status": "Tehlikeli" if ram_usage > 90 or cpu_usage > 90 else "Normal",
+        "CPU": f"%{cpu_usage}",
+        "RAM_DETAY": f"Kullanılan: {ram.used / (1024**3):.2f}GB, Boş: {ram.available / (1024**3):.2f}GB, Toplam: {ram.total / (1024**3):.2f}GB (Doluluk: %{ram.percent})",
+        "VRAM_DETAY": vram_report,
+        "GENEL_SİSTEM_NOTU": "KRİTİK" if ram.percent > 85 else "STABİL",
     }
 
 

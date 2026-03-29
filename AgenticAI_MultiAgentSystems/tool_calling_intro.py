@@ -31,19 +31,17 @@ def agent_node(state: AgentState):
     return {"messages": [response]}
 
 
-# Araç Düğümü: Prebuilt ToolNode kullanıyoruz, araçları çalıştırır
-tool_node = ToolNode(tools)
-
-# graphı oluştur yapılandır (EDGES & LOGIC)
+# Graph oluştur and yapılandır (EDGES & LOGIC)
 workflow = StateGraph(AgentState)
 
 workflow.add_node("agent", agent_node)
-workflow.add_node("tools", tool_node)
+# Node for tools: Prebuilt ToolNode kullanıyoruz, araçları çalıştırır
+workflow.add_node("tools", ToolNode(tools))
 
 # Başlangıç noktası belirleme
 workflow.set_entry_point("agent")
 
-# Conditionla Edges - koşullu kenar
+# Conditional Edges - koşullu kenar
 # Model cevap verdikten sonra ne
 # yapacağına karar verir (araç mı çağırsın, bitirsin mi?)
 workflow.add_conditional_edges(
@@ -63,23 +61,34 @@ app = workflow.compile()
 if __name__ == "__main__":
     print("LangGraph Llama3 Tool Calling Başlıyor")
     # query = "Merhaba lütfen bana 200 ile 2 yi çarpar mısın?"
-    query = """
-            Şu an sistemin genel durumu nasıl? 
-            Önce donanım kaynaklarını kontrol et, sonra şu log satırını analiz et: 
-            'RuntimeError: CUDA out of memory in Computer Vision pipeline'
-            """
+    # query = """
+    #         Şu an sistemin genel durumu nasıl?
+    #         Önce donanım kaynaklarını kontrol et, sonra şu log satırını analiz et:
+    #         'RuntimeError: CUDA out of memory in Computer Vision pipeline'
+    #         """
+    query = (
+        "Sen uzman bir Sistem ve AI Altyapı Analistisin. "
+        "Araçlardan gelen verileri ham halde bırakma, mutlaka YORUMLA. "
+        "Raporunu şu başlıklarla TÜRKÇE olarak sun:\n"
+        "1. 🖥️ DONANIM DURUMU: CPU, RAM ve VRAM değerlerini tek tek yaz ve limitlere yakınlığını belirt.\n"
+        "2. 🔍 LOG ANALİZİ: Tespit edilen hataların ne anlama geldiğini teknik olarak açıkla.\n"
+        "3. 💡 ÇÖZÜM ÖNERİSİ: Sorunu çözmek için atılması gereken somut adımları (örn: model küçültme, cache temizleme) söyle.\n"
+        "Yanıtın teknik, detaylı ve profesyonel olsun."
+    )
 
     inputs = {"messages": [HumanMessage(content=query)]}
 
     for event in app.stream(inputs):
         for key, value in event.items():
             print(f"\n# Adım: {key}")
+
             if "messages" in value:
                 last_msg = value["messages"][-1]
+
                 # Gürültüyü azaltmak için sadece içeriği veya tool_call'u yazdıralım
                 if hasattr(last_msg, "tool_calls") and last_msg.tool_calls:
-                    print(f"Model Aaç Çağırıyor: {last_msg.tool_calls}")
+                    print(f"Model is calling tool: {last_msg.tool_calls}")
                 else:
-                    print(f"Model cevabı: {last_msg.content}")
+                    print(f"Model Result: {last_msg.content}")
 
-    print("Akış Tamamlandı")
+    print("# # # # # #      DONE      # # # # # #")

@@ -38,7 +38,7 @@ Akış Tamamlandı
         "Yanıtın teknik, detaylı ve profesyonel olsun."
 )
 
-# result:
+# result-1:
 """
 LangGraph Llama3 Tool Calling Başlıyor
 
@@ -73,6 +73,49 @@ Sorunu çözmek için aşağıdaki adımları takip edebilirsiniz:
 
 Bu adımları takip ederek, araçlardan gelen verileri ham halde bırakma hatalarını ortadan kaldırabilir ve daha verimli bir veri işleme süreci sağlayabilirsiniz.
 Akış Tamamlandı
+"""
+
+# result-1:
+"""
+LangGraph Llama3 Tool Calling Başlıyor
+
+# Adım: agent
+Model is calling tool: [{'name': '__get_system_resource_usage', 'args': {}, 'id': '2578f7dd-9996-4603-98b2-ab9472c03398', 'type': 'tool_call'}]
+
+# Adım: tools
+Model Result: {"CPU": "%2.9", "RAM_DETAY": "Kullanılan: 9.96GB, Boş: 21.09GB, Toplam: 31.05GB (Doluluk: %32.1)", "VRAM_DETAY": "Kullanılan: 0.0MB, Ayrılan: 0.0MB, Toplam: 11772.4MB", "GENEL_SİSTEM_NOTU": "STABİL"}
+
+# Adım: agent
+Model Result: **Rapor**
+
+**🖥️ DONANIM DURUMU:**
+
+* **CPU:** %2.9 (Limit: %80)
+        + Sistemimizdeki CPU kullanımı normal seviyededir ve limitin %80'ini aşmamaktadır.
+* **RAM:** Kullanılan: 9.96GB, Boş: 21.09GB, Toplam: 31.05GB (Doluluk: %32.1)
+        + Sistemimizdeki RAM kullanımı orta seviyededir ve limitin %80'ini aşmamaktadır.
+* **VRAM:** Kullanılan: 0.0MB, Ayrılan: 0.0MB, Toplam: 11772.4MB
+        + Sistemimizdeki VRAM kullanımı normal seviyededir ve limitin %80'ini aşmamaktadır.
+
+**🔍 LOG ANALİZİ:**
+
+* **Hata:** "Sistem hataları"
+        + Bu hata genellikle sistemde bir sorun veya arızanın varlığından kaynaklanmaktadır. Hata mesajı şu şekildedir:
+        "Sistem hataları: Sistem hataları oluştu. Lütfen sisteminizi yeniden başlatın."
+* **Hata Açıklaması:** Bu hata, sistemde bir sorun veya arızanın varlığından kaynaklanmaktadır. Sorun genellikle sistemde bir yazılım veya donanım hatasıdır.
+* **Çözüm Önerisi:**
+        1. Sistemizi yeniden başlatın.
+        2. Sistemdeki tüm yazılımları güncelleyin.
+        3. Sistemdeki tüm sürücülerini güncelleyin.
+
+**💡 ÇÖZÜM ÖNERİSİ:**
+
+* **Sistemizi Yeniden Başlatın:** Sistemizi kapatıp açmak, sistemde bir sorun veya arızanın varlığından kaynaklanan hataları çözmek için en basit ve etkili yöntemdir.
+* **Sistemdeki Tüm Yazılımlarını Güncelleyin:** Sistemdeki tüm yazılımları güncellemek, yeni güvenlik açıklarını kapatarak sistem güvenliğini artırmaktadır.
+* **Sistemdeki Tüm Sürücülerini Güncelleyin:** Sistemdeki tüm sürücülerini güncellemek, yeni sürücüleri yükleyerek sistem performansını artırmaktadır.
+
+Bu rapor, sistemin donanım durumunu ve log analizini incelemiş ve sorunların çözümü için öneriler sunmuştur.
+# # # # # #      DONE      # # # # # #
 """
 
 ----------------------------------------------
