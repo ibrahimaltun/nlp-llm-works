@@ -87,40 +87,51 @@ workflow.add_edge("tools", "agent")
 app = workflow.compile(checkpointer=memory)
 
 
+def run_interactive_agent():
+    # Her konuşma bir 'thread_id' ile takip edilir. Bu sayede ajan konuşan kişiyi hatırlar.
+    config = {"configurable": {"thread_id": "sistem_analisti_01"}}
+
+    # print("\n🤖 [Sistem Analisti Ajanı Başlatıldı]")
+    print("\n🚀 [LSA-Agent] Aktif. Terminalden konuşabilirsiniz.")
+    print("Çıkmak için 'exit' veya 'quit' yazabilirsin.\n")
+
+    while True:
+        user_input = input("\nSiz: ")
+        if user_input.lower() in ["exit", "quit", "q"]:
+            break
+
+        # Kullanıcı mesajını gönder ve yanıtı işle
+        inputs = {"messages": [HumanMessage(content=user_input)]}
+
+        # config buraya parametre olarak verilir
+        # LangGraph bu id ile SQLite/Memory içindeki eski mesajları bulur.
+        # stream_mode="values" kullanarak tüm konuşma akışını alalım
+        for event in app.stream(inputs, config=config, stream_mode="values"):
+            # Sadece modelin yazdığı en son mesajı yakala
+            if "messages" in event:
+                last_msg = event["messages"][-1]
+
+                # 1. Eğer model bir ARAÇ ÇAĞRISI yapıyorsa, kullanıcıya "Analiz ediliyor..." de
+                if hasattr(last_msg, "tool_calls") and last_msg.tool_calls:
+                    tool_name = last_msg.tool_calls[0]["name"]
+                    print(f"🛠️ [SİSTEM] {tool_name} verileri toplanıyor...")
+
+                # 2. Eğer mesaj modelden geliyorsa (AI) ve içeriği varsa (JSON DEĞİLSE)
+                # Sadece son metin cevabını basar
+                elif (
+                    isinstance(last_msg, AIMessage)
+                    and last_msg.content
+                    and not last_msg.tool_calls
+                ):
+                    # Model bazen hala JSON basmaya çalışırsa diye küçük bir kontrol
+                    if "{" not in last_msg.content[:10]:
+                        print(f"\n📢 AJAN:\n{last_msg.content}")
 
 
 # Test - Execute Workflow
 if __name__ == "__main__":
-    print("LangGraph Llama3 Tool Calling Başlıyor")
-    # query = "Merhaba lütfen bana 200 ile 2 yi çarpar mısın?"
-    # query = """
-    #         Şu an sistemin genel durumu nasıl?
-    #         Önce donanım kaynaklarını kontrol et, sonra şu log satırını analiz et:
-    #         'RuntimeError: CUDA out of memory in Computer Vision pipeline'
-    #         """
-    query = (
-        "Sen uzman bir Sistem ve AI Altyapı Analistisin. "
-        "Araçlardan gelen verileri ham halde bırakma, mutlaka YORUMLA. "
-        "Raporunu şu başlıklarla TÜRKÇE olarak sun:\n"
-        "1. 🖥️ DONANIM DURUMU: CPU, RAM ve VRAM değerlerini tek tek yaz ve limitlere yakınlığını belirt.\n"
-        "2. 🔍 LOG ANALİZİ: Tespit edilen hataların ne anlama geldiğini teknik olarak açıkla.\n"
-        "3. 💡 ÇÖZÜM ÖNERİSİ: Sorunu çözmek için atılması gereken somut adımları (örn: model küçültme, cache temizleme) söyle.\n"
-        "Yanıtın teknik, detaylı ve profesyonel olsun."
-    )
+    # check system hardware
+    HardwareGuard().check_capabilities()
 
-    inputs = {"messages": [HumanMessage(content=query)]}
-
-    for event in app.stream(inputs):
-        for key, value in event.items():
-            print(f"\n# Adım: {key}")
-
-            if "messages" in value:
-                last_msg = value["messages"][-1]
-
-                # Gürültüyü azaltmak için sadece içeriği veya tool_call'u yazdıralım
-                if hasattr(last_msg, "tool_calls") and last_msg.tool_calls:
-                    print(f"Model is calling tool: {last_msg.tool_calls}")
-                else:
-                    print(f"Model Result: {last_msg.content}")
-
-    print("# # # # # #      DONE      # # # # # #")
+    # run Local System Analyst
+    run_interactive_agent()
