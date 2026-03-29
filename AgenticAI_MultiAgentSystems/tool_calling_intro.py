@@ -11,7 +11,13 @@ from langgraph.prebuilt import ToolNode, tools_condition
 from tools_script import tools
 
 # adım 2: modeli yükleme
-llm = ChatOllama(model="llama3.1", temperature=0)
+llm = ChatOllama(
+    model="llama3.1",
+    temperature=0.1,  # 0 çok robotik olabilir, 0.1 tutarlılık ile zeka arasında iyi bir dengedir.
+    num_ctx=4096,  # Bağlam penceresini geniş tutarak geçmişi unutmasını engelle.
+    num_gpu=35,  # Senin sistemin için ideal GPU offloading.
+    repeat_penalty=1.2,  # Modelin aynı kelimeleri tekrar etmesini (loop) engeller.
+)
 
 # modelin tool'ları bilmesini sağlamasa
 llm_w_tools = llm.bind_tools(tools)
