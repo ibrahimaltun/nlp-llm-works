@@ -2,13 +2,21 @@ import os
 from typing import Annotated, Literal, TypedDict
 
 from langchain_ollama import ChatOllama
-from langchain_core.messages import HumanMessage, BaseMessage
+from langchain_core.messages import HumanMessage, BaseMessage, SystemMessage, AIMessage
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode, tools_condition
 
+# Memory Saver sınıfı LangGraph'ın bellek kullanımını aktif etmek içindir,
+#  model geçmiş konuşmalrı hatılayarak değerlendirmelerde bulunabilir.
+from langgraph.checkpoint.memory import MemorySaver
+
+from hardware_guard import HardwareGuard
 
 # adım 1: tool'ları hazırlama
-from tools_script import tools
+from analyst_tools import tools
+
+# Bellek tabanlı hafıza
+memory = MemorySaver()
 
 # adım 2: modeli yükleme
 llm = ChatOllama(
@@ -74,7 +82,11 @@ workflow.add_conditional_edges(
 workflow.add_edge("tools", "agent")
 
 # Graph'ı derle
-app = workflow.compile()
+# app = workflow.compile()
+# Bellekli yapı eklenmesi için güncellendi
+app = workflow.compile(checkpointer=memory)
+
+
 
 
 # Test - Execute Workflow
