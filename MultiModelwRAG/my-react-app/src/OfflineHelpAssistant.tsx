@@ -83,9 +83,9 @@ export const OfflineHelpAssistant: React.FC = () => {
         <Typography
           variant="h4"
           component="h1"
-          fontWeight="bold"
           color="text.primary"
           gutterBottom
+          sx={{ fontWeight: "bold" }}
         >
           Çevrimdışı Akıllı Kılavuz Asistanı
         </Typography>
@@ -155,8 +155,8 @@ export const OfflineHelpAssistant: React.FC = () => {
           <CircularProgress size={40} />
           <Typography
             variant="body1"
-            fontWeight="medium"
             color="text.secondary"
+            sx={{ fontWeight: "bold" }}
           >
             Veritabanı taranıyor ve yapay zeka görseli analiz ediyor...
           </Typography>
@@ -178,7 +178,11 @@ export const OfflineHelpAssistant: React.FC = () => {
           }}
         >
           <WarningIcon color="error" />
-          <Typography variant="body2" color="error.main" fontWeight="medium">
+          <Typography
+            variant="body2"
+            color="error.main"
+            sx={{ fontWeight: "medium" }}
+          >
             {error}
           </Typography>
         </Paper>
@@ -195,8 +199,8 @@ export const OfflineHelpAssistant: React.FC = () => {
             title={
               <Typography
                 variant="subtitle2"
-                fontWeight="bold"
                 sx={{
+                  fontWeight: "bold",
                   trackingLetter: "0.5px",
                   textTransform: "uppercase",
                   color: "text.secondary",
@@ -211,8 +215,7 @@ export const OfflineHelpAssistant: React.FC = () => {
                   icon={<BookIcon fontSize="small" />}
                   label={`Kaynak: Sayfa ${result.source_page}`}
                   color="primary"
-                  variant="soft"
-                  sx={{ fontWeight: "bold" }}
+                  sx={{ fontWeight: "bold", variant: "soft" }}
                 />
               )
             }
@@ -263,8 +266,8 @@ export const OfflineHelpAssistant: React.FC = () => {
                     <ImageIcon color="action" fontSize="small" />
                     <Typography
                       variant="caption"
-                      fontWeight="medium"
                       color="text.secondary"
+                      sx={{ fontWeight: "medium" }}
                     >
                       İncelenen Kılavuz Görseli / Ekran Görüntüsü:
                     </Typography>
