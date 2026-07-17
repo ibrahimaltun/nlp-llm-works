@@ -31,5 +31,3 @@ NOTE: repeat pip packages installation
 
 $ fuser -k 8000/tcp
 $ kill -9 $(lsof -t -i:8000)
-
-### 3
