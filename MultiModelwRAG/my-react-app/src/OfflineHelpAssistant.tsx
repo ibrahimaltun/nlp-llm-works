@@ -42,7 +42,7 @@ export const OfflineHelpAssistant: React.FC = () => {
     setError(null);
 
     try {
-      const apiResponse = await fetch("http://127.0.0.1:8091", {
+      const apiResponse = await fetch("http://127.0.0.1:8777/api/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: query }),

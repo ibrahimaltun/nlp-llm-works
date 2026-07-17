@@ -3,13 +3,13 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 import os
 
-# disable internet connection for Hugging Face libs
+# Enforce strict offline flags for Hugging Face components
 os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
 os.environ["HF_HUB_OFFLINE"] = "1"
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
 
 # prepare local db and embedding model, it full work offline
-chroma_client = chromadb.PersistentClient(path="documant_db")
+chroma_client = chromadb.PersistentClient(path="doc_db")
 collection = chroma_client.get_or_create_collection(name="help_doc")
 # embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
