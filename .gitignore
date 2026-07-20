@@ -3,3 +3,5 @@
 *.whl
 *__pycache__
 *.vscodes
+*.chainlit
+*.vscode
