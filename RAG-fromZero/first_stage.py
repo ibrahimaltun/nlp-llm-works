@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer
 # 1. INITIALIZE SYSTEM COMPONENTS
 print("Loading text embedding model...")
 embedding_model = SentenceTransformer(
-    "/home/ibrahim/works/nlp-llm-works/MultiModelwRAG/model_files")
+    "/home/ibrahim/works/nlp-llm-works/RAG-fromZero/model_files")
 
 
 def read_plain_text_file(file_path):

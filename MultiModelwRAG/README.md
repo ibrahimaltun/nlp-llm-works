@@ -6,3 +6,4 @@
 ## Terminal 2 (Python Backend): Run python app.py (Registers on port 8008)
 
 ## Terminal 3 (React UI): Run npm run dev
+

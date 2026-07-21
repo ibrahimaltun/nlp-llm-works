@@ -5,3 +5,5 @@
 *.vscodes
 *.chainlit
 *.vscode
+*/node_modules
+*saved_images
