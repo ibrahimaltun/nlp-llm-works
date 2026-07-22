@@ -1,0 +1,6 @@
+1. ValueError: Unrecognized model in RAG-fromZero/model_files/multilingual-e5-small. Should have a `model_type` key in its config.json.
+2. OSError: Error no file named model.safetensors, or pytorch_model.bin, found in directory RAG-fromZero/model_files/multilingual-e5-small.
+3. ImportError: sys.meta_path is None, Python is likely shutting down
+
+
+All errors above will solve if you add embedding model files to under the model_files folder.

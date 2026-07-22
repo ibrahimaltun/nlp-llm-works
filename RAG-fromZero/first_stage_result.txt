@@ -1,0 +1,17 @@
+Raporun Teknik Analizi
+
+Veri Bütünlüğü (Data Integrity): Yaklaşık 66,898 karakterlik teknik bir makaleyi (Hydropower Systems
+Anomaly Detection) belleğe tek bir ham string olarak sıfır kayıpla yüklemişsiniz.
+
+Parçalama Başarısı (Chunking): Yazdığımız doğrusal karakter bölücü, metni tam 124 benzersiz
+parçaya ayırmış. İlk iki parçanın önizlemesine baktığımızda, karakter bazlı kaydırmanın (overlap)
+sorunsuz çalıştığı ve anlam bütünlüğünü koruduğu görülüyor.
+
+Matematiksel Doğruluk (Mathematical Soundness): En kritik kısım burası. chunk_embeddings.shape
+çıktısının (124, 384) gelmesi, elimizdeki 124 metin parçasının her birinin
+intfloat/multilingual-e5-small modeli tarafından başarıyla 384 boyutlu vektörlere
+dönüştürüldüğünü kanıtlıyor.
+
+Sıfır Anomali (Zero Anomalies): NaN ve Infinite değerlerin False çıkması, matrisimizde hiçbir
+bozuk veri veya tanımsız matematiksel işlem olmadığını, yani NumPy ile kosinüs benzerliği
+hesaplarken bilgisayarın asla hata vermeyeceğini garantiliyor.
