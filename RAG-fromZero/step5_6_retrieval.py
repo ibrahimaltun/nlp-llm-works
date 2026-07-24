@@ -32,6 +32,7 @@ class QdrantRetriever:
             prefixed_query,
             normalize_embeddings=True
         )
+        # print("query vector: ", query_vector)
         return query_vector
 
     def search_relevant_chunks(self, user_query: str, top_k: int = 3):
@@ -85,13 +86,13 @@ if __name__ == "__main__":
     print(f"--- STEP 5: Processing User Query ---")
     print(f"User Query: \"{real_time_q}\"")
 
-    print(f"\n--- STEP 6: Executing Qdrant Vector Search (Top-3 Chunks) ---")
-    results = retriever.search_relevant_chunks(real_time_q, top_k=3)
+    print(f"\n--- STEP 6: Executing Qdrant Vector Search (Top-5 Chunks) ---")
+    results = retriever.search_relevant_chunks(real_time_q, top_k=5)
 
     for idx, doc in enumerate(results, 1):
         print(
             f"\n[Result {idx}] (Similarity Score: {doc['score']} | Chunk ID: {doc['chunk_id']})")
-        print(f"Text Content: \"{doc['text'][:200]}...\"")
+        print(f"Text Content: \"{doc['text'][:650]}...\"")
 
     retriever.close()
     print("\nRetrieval completed cleanly.")
